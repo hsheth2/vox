@@ -1,5 +1,5 @@
-#!usr/bin/env python  
-#coding=utf-8  
+#!usr/bin/env python
+#coding=utf-8
 import pyaudio
 import wave
 import sys
@@ -10,15 +10,27 @@ chunk = 1024
 # create an audio object
 p = pyaudio.PyAudio()
 stream = None
+frames = None
 
 try:
 	for filename in sys.stdin:
 		filename = filename.strip()
 		if len(filename) is 0:
 			continue
-		
+
 		# open the file for reading.
+		frames_previous = frames
 		wf = wave.open(filename, "rb")
+
+		# Begin smoothing code
+		w = wf
+		frames = []
+		for i in xrange(w.getnframes()):
+		    frame = w.readframes(i)
+		    frames.append(frame)
+
+		wf = spec_smooth(frames_previous, frames)
+		# End smoothing code
 
 		# open stream based on the wave object which has been input.
 		if stream is None:
@@ -35,7 +47,7 @@ try:
 			# writing to the stream is what *actually* plays the sound.
 			stream.write(data)
 			data = wf.readframes(chunk)
-		
+
 except KeyboardInterrupt:
 	pass
 finally:
@@ -44,3 +56,12 @@ finally:
 		stream.close()
 	p.terminate()
 	print >> sys.stderr, "Cleanup finished"
+
+def spec_smooth(wav_previous, wav):
+	"""
+	Modified spectral smoothing algorithm
+	"""
+	if frames is None:
+		return None
+
+	return wav_new
