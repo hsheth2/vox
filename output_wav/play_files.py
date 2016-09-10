@@ -45,13 +45,13 @@ try:
         frames_previous = frames
         wf = wave.open(filename, "rb")
 
-        """# Begin smoothing code
+        # Begin smoothing code
         rate, frames = scipy.io.wavfile.read(filename)
         add_frames = spec_smooth(frames, frames_previous)
-        scipy.io.wavfile.write(filename, )
+        scipy.io.wavfile.write(filename, rate, add_frames)
 
         # TODO prepend add_frames frames to wf
-        # End smoothing code"""
+        # End smoothing code
 
         # open stream based on the wave object which has been input.
         if stream is None:
