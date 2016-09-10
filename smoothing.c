@@ -75,7 +75,6 @@ int main()
                     printf(” The output is %s ”, answer);
                     found = 1;
                 }
-
             }
 
 
