@@ -1,5 +1,7 @@
 openal
 build
+__pycache__
+*.pyc
 
 # Object files
 *.o
