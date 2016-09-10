@@ -29,9 +29,10 @@ def spec_smooth(frame, frame_previous):
                 [interpol_frame + i + len(frames_previous) for i in range(len(frame))]
     frame_arr = np.concatenate((frame_previous + frame))
 
-    cs = scipy.interpolate.CubicSpline(frame_num, frame_arr)
-    cs()
-    return add_frame
+    cs_interpolation = scipy.interpolate.CubicSpline(x=frame_num, y=frame_arr)
+    interpol_val = np.array([cs_interpolation(len(frames_previous) + i) for i in range(interpol_frame)])
+
+    return np.concatenate((interpol_val, frame))
 
 
 try:
@@ -47,6 +48,7 @@ try:
         # Begin smoothing code
         rate, frames = scipy.io.wavfile.read(filename)
         add_frames = spec_smooth(frames, frames_previous)
+        scipy.io.wavfile.write(filename, )
 
         # TODO prepend add_frames frames to wf
         # End smoothing code
