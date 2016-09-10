@@ -6,6 +6,7 @@ import sys
 import scipy.io.wavfile
 import scipy.interpolate
 import numpy as np
+from os.path import isfile
 
 # length of data to read.
 chunk = 1024
@@ -14,6 +15,7 @@ chunk = 1024
 p = pyaudio.PyAudio()
 stream = None
 frames = None
+filename = None
 
 interpol_frame = 10
 
@@ -36,6 +38,7 @@ def spec_smooth(frame, frame_previous):
 
 
 try:
+    filename_old = filename
     for filename in sys.stdin:
         filename = filename.strip()
         if len(filename) is 0:
@@ -46,11 +49,16 @@ try:
         wf = wave.open(filename, "rb")
 
         # Begin smoothing code
-        rate, frames = scipy.io.wavfile.read(filename)
-        add_frames = spec_smooth(frames, frames_previous)
-        scipy.io.wavfile.write(filename, rate, add_frames)
+        if filename_old is not None:
+            filename_new = "./output_wav/" + filename.split('/')[-1][:-4] + "-" + \
+                           filename_old.split('/')[-1][:-4] + ".wav"
 
-        # TODO prepend add_frames frames to wf
+            if not isfile(filename_new):
+                rate, frames = scipy.io.wavfile.read(filename)
+                add_frames = spec_smooth(frames, frames_previous)
+                scipy.io.wavfile.write(filename_new, rate, add_frames)
+            wf = wave.open(filename_new, "rb")
+
         # End smoothing code
 
         # open stream based on the wave object which has been input.
