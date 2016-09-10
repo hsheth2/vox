@@ -11,15 +11,17 @@ chunk = 1024
 # create an audio object
 p = pyaudio.PyAudio()
 stream = None
+rate = None
 frames = None
 
 
-def spec_smooth(frames_previous, frames):
+def spec_smooth(rate, frames, rate_previous, frames_previous):
     """
     Modified spectral smoothing algorithm with cubic spline interpolation
     """
     if frames is None:
         return None
+
 
     return frames_new
 
@@ -31,19 +33,14 @@ try:
             continue
 
         # open the file for reading.
-        frames_previous = frames
+        rate_previous, frames_previous = rate, frames
         wf = wave.open(filename, "rb")
-        scipy.io.wavfile.read(filename)
 
         # Begin smoothing code
-        w = wf
-        frames = []
-        for i in range(w.getnframes()):
-            frame = w.readframes(i)
-            frames.append(frame)
+        rate, frames = scipy.io.wavfile.read(filename)
+        add_frames = spec_smooth(rate, frames, rate_previous, frames_previous)
 
-        add_frames = spec_smooth(frames_previous, frames)
-        # TODO append add_frames frames to wf
+        # TODO prepend add_frames frames to wf
         # End smoothing code
 
         # open stream based on the wave object which has been input.
