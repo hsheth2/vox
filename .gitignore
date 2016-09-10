@@ -2,6 +2,7 @@ openal
 build
 __pycache__
 *.pyc
+phoneme_reader
 
 # Object files
 *.o

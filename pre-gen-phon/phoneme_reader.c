@@ -30,9 +30,9 @@ main(int argc, char *argv[])
         return -1;
     }
 
-    fh = fopen("test/data/goforward.raw", "rb");
+    fh = fopen("/root/vox/Barry/output.raw", "rb");
     if (fh == NULL) {
-        fprintf(stderr, "Unable to open input file goforward.raw\n");
+        fprintf(stderr, "Unable to open input file\n");
         return -1;
     }
 
