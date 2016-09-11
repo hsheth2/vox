@@ -7,7 +7,12 @@ import re
 import argparse
 import splitutil
 
-sys.stdin.readline()
+FILE = "goforward"
+if len(sys.argv) >= 2:
+	FILE = sys.argv[1]
+
+sys.stdin = open('../audio/times/{}.txt'.format(FILE))
+
 sys.stdin.readline()
 
 data = []
@@ -27,7 +32,7 @@ times = []
 for x in data:
 	times.append( x[:3] )
 
-times.sort()
+times.sort(reverse=True)
 print(times)
 
 def split_song(full_track, track_info):
@@ -35,10 +40,11 @@ def split_song(full_track, track_info):
 	start = track_info[1]
 	end = track_info[2]
 	duration = end-start
-	track_path = './morgan/{}.wav'.format(track_info[0])
+	track_path = '../audio/phonene/{}/{}.wav'.format(FILE, track_info[0])
 	full_track[start:][:duration].export(track_path, format="wav")
 
-album = AudioSegment.from_file("goforward.wav", 'wav')
+os.makedirs('../audio/phonene/{}'.format(FILE), exist_ok=True)
+album = AudioSegment.from_file("../audio/wav/{}.wav".format(FILE), 'wav')
 for part in times:
 	print(part)
 	split_song(album, part)
