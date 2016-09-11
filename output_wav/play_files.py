@@ -17,7 +17,7 @@ stream = None
 frames = None
 filename = None
 
-interpol_frame = 100
+interpol_frame = 1600
 
 
 def spec_smooth(frame, frame_previous):
