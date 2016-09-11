@@ -22,7 +22,7 @@ def processor(_):
 				# to use another API key, use `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
 				# instead of `r.recognize_google(audio)`
 				ans = r.recognize_google(audio)
-				print >> sys.stderr, "Google Speech Recognition thinks you previously said " + ans
+				print >> sys.stderr, "Google Speech Recognition thinks you previously said '{}'".format(ans)
 				for x in ans.strip().split(' '):
 					print x
 				sys.stdout.flush()

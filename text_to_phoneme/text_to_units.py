@@ -19,7 +19,9 @@ with open('cmudict.dict', 'r') as inp:
 def print_phoneme(ph):
 	print '../audio/phonene/{}/{}.wav'.format(FILE, ph)
 
+print >> sys.stderr, "waiting for initial data within text_to_units.py"
 for word in sys.stdin:
+	print >> sys.stderr, "got some data from text_to_units.py"
 	word = word.strip().lower()
 	if len(word) is 0:
 		continue
