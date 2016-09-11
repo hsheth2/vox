@@ -3,6 +3,7 @@ from pydub import AudioSegment
 import time
 import os
 import sys
+import random
 import re
 import argparse
 import splitutil
@@ -28,9 +29,13 @@ for line in sys.stdin:
 # print(data)
 
 # times = [data[0][1]]
+first = data[0]
+print("First data: "+ str(first))
 times = []
+phonenes = set()
 for x in data:
-	times.append( x[:3] )
+	phonenes.add(x[0])
+	times.append( [x[0], x[1]-first[1], x[2]-first[1]] )
 
 times.sort(reverse=True)
 print(times)
@@ -40,11 +45,16 @@ def split_song(full_track, track_info):
 	start = track_info[1]
 	end = track_info[2]
 	duration = end-start
-	track_path = '../audio/phonene/{}/{}.wav'.format(FILE, track_info[0])
+	track_path = '../audio/phonene/{}/{}-{}.wav'.format(FILE, track_info[0], start)
 	full_track[start:][:duration].export(track_path, format="wav")
 
 os.makedirs('../audio/phonene/{}'.format(FILE), exist_ok=True)
 album = AudioSegment.from_file("../audio/wav/{}.wav".format(FILE), 'wav')
-for part in times:
-	print(part)
-	split_song(album, part)
+for phonene in phonenes:
+	print("Processing '{}'".format(phonene))
+	# part = max(filter(lambda x: x[0]==phonene, times), key=lambda x: random.random())
+	# print(part)
+	# split_song(album, part)
+	for x in filter(lambda x: x[0]==phonene, times):
+		split_song(album, x)
+	
