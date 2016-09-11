@@ -40,21 +40,21 @@ for x in data:
 times.sort(reverse=True)
 print(times)
 
-def split_song(full_track, track_info):
+def split_song(full_track, track_info, tag=""):
 	# print("\t{}) {}".format(str(index+1), track))
 	start = track_info[1]
 	end = track_info[2]
 	duration = end-start
-	track_path = '../audio/phonene/{}/{}-{}.wav'.format(FILE, track_info[0], start)
+	track_path = '../audio/phonene/{}/{}{}.wav'.format(FILE, track_info[0], tag)
 	full_track[start:][:duration].export(track_path, format="wav")
 
 os.makedirs('../audio/phonene/{}'.format(FILE), exist_ok=True)
 album = AudioSegment.from_file("../audio/wav/{}.wav".format(FILE), 'wav')
 for phonene in phonenes:
 	print("Processing '{}'".format(phonene))
-	# part = max(filter(lambda x: x[0]==phonene, times), key=lambda x: random.random())
-	# print(part)
-	# split_song(album, part)
+	part = max(filter(lambda x: x[0]==phonene, times), key=lambda x: random.random())
+	print(part)
+	split_song(album, part)
 	for x in filter(lambda x: x[0]==phonene, times):
-		split_song(album, x)
+		split_song(album, x, "-{}".format(x[1]))
 	
