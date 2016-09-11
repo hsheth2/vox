@@ -1,0 +1,9 @@
+\\mac\home\documents\visual studio 2015\Projects\Vox\Vox\bin\Debug\Vox.exe.config
+\\mac\home\documents\visual studio 2015\Projects\Vox\Vox\bin\Debug\Vox.exe
+\\mac\home\documents\visual studio 2015\Projects\Vox\Vox\bin\Debug\Vox.pdb
+\\mac\home\documents\visual studio 2015\Projects\Vox\Vox\obj\Debug\Vox.csprojResolveAssemblyReference.cache
+\\mac\home\documents\visual studio 2015\Projects\Vox\Vox\obj\Debug\Vox.Main.resources
+\\mac\home\documents\visual studio 2015\Projects\Vox\Vox\obj\Debug\Vox.Properties.Resources.resources
+\\mac\home\documents\visual studio 2015\Projects\Vox\Vox\obj\Debug\Vox.csproj.GenerateResource.Cache
+\\mac\home\documents\visual studio 2015\Projects\Vox\Vox\obj\Debug\Vox.exe
+\\mac\home\documents\visual studio 2015\Projects\Vox\Vox\obj\Debug\Vox.pdb
