@@ -32,7 +32,7 @@ times = []
 for x in data:
 	times.append( x[:3] )
 
-times.sort()
+times.sort(reverse=True)
 print(times)
 
 def split_song(full_track, track_info):
