@@ -17,7 +17,7 @@ stream = None
 frames = None
 filename = None
 
-interpol_frame = 10
+interpol_frame = 100
 
 
 def spec_smooth(frame, frame_previous):
@@ -59,7 +59,7 @@ try:
                 scipy.io.wavfile.write(filename_new, rate, add_frames)
             wf = wave.open(filename_new, "rb")
 
-        # End smoothing code
+        # End smoothing code"""
 
         # open stream based on the wave object which has been input.
         if stream is None:
